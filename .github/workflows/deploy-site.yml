@@ -11,9 +11,11 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Upload page
-              uses: shallwefootball/s3-upload-action@master
+              uses: jakejarvis/s3-sync-action@master
               with:
-                aws_bucket: ci-cd-laboratory
-                source_dir: index.html
-                aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                args: --acl public-read
+              env:
+                AWS_S3_BUCKET: ci-cd-laboratory
+                SOURCE_DIR: 'index.html'
+                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
