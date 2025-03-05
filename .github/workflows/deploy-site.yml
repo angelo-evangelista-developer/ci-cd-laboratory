@@ -1,0 +1,19 @@
+name: Deploy Site
+on:
+    push:
+        branches: 
+            - main
+jobs:
+    update-s3:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Upload page
+              uses: shallwefootball/s3-upload-action@master
+              with:
+                aws_bucket: ci-cd-laboratory
+                source_dir: index.html
+                aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
